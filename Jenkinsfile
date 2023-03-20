@@ -6,7 +6,7 @@ pipeline {
         AWS_DEFAULT_REGION = "us-east-1"
     }
     stages {
-        stage("Create nginx-conroller") {
+        stage("Create nginx-controller") {
             steps {
                 script {
                     dir('nginx-controller') {
