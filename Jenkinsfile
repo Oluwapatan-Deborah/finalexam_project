@@ -29,8 +29,7 @@ pipeline {
         stage("Deploy Voting App to EKS") {
             steps {
                 dir('voting-app') {
-                    sh "terraform init"
-                    sh "terraform apply -auto-approve"
+                    sh "kubectl apply -f voting_app.yaml"   
                 }
             }
         }
@@ -38,8 +37,7 @@ pipeline {
         stage("Deploy Microservice to EKS") {
             steps {
                 dir('sock-shop') {
-                    sh "terraform init"
-                    sh "terraform apply -auto-approve"
+                    sh "kubectl apply -f deployment.yaml"
                 }
             }
         }
