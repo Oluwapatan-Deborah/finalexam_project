@@ -5,57 +5,50 @@ pipeline {
         AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
         AWS_DEFAULT_REGION = "us-east-1"
     }
+  
     stages {
-        stage("Create nginx-controller") {
+        stage("Create nginx-conroller") {
             steps {
-                script {
-                    dir('nginx-controller') {
-                       sh "aws eks --region us-east-1 update-kubeconfig --name exam"
-                        sh "terraform init"
-                        sh "terraform apply -auto-approve"
-                    }
+                dir('prometheus') {
+                    sh "aws eks --region us-east-1 update-kubeconfig --name exam"
+                    sh "terraform init"
+                    sh "terraform apply -auto-approve"
                 }
             }
         }
-
-        stage("Create prometheus") {
+      
+        stage("Create Nginx-controller") {
             steps {
-                script {
-                    dir('prometheus') {
-                        sh "terraform init"
-                        sh "terraform apply -auto-approve"
-                    }
+                dir('nginx-controller') {
+                    sh "terraform init"
+                    sh "terraform apply -auto-approve"
                 }
             }
         }
-
-        stage("Deploy voting-app to EKS") {
+      
+        stage("Deploy Voting App to EKS") {
             steps {
-                script {
-                    dir('voting-app') {
-                        sh "kubectl apply -f voting_app.yaml"
-                    }
+                dir('voting-app') {
+                    sh "terraform init"
+                    sh "terraform apply -auto-approve"
                 }
             }
         }
-
-        stage("Deploy sock-shop to EKS") {
+      
+        stage("Deploy Microservice to EKS") {
             steps {
-                script {
-                    dir('sock-shop') {
-                        sh "kubectl apply -f deployment.yaml"
-                    }
+                dir('sock-shop') {
+                    sh "terraform init"
+                    sh "terraform apply -auto-approve"
                 }
             }
         }
-
-        stage("Deploy ingress rule to EKS") {
+      
+        stage("Deploy Ingress rule to EKS") {
             steps {
-                script {
-                    dir('ingress-rule') {
-                        sh "terraform init"
-                        sh "terraform apply -auto-approve"
-                    }
+                dir('ingress-rule') {
+                    sh "terraform init"
+                    sh "terraform apply -auto-approve"
                 }
             }
         }
