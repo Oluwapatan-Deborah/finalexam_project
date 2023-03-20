@@ -7,7 +7,7 @@ pipeline {
     }
   
     stages {
-        stage("Create nginx-conroller") {
+        stage("Create Prometheus") {
             steps {
                 dir('prometheus') {
                     sh "aws eks --region us-east-1 update-kubeconfig --name exam"
