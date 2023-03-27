@@ -42,7 +42,7 @@ resource "kubernetes_ingress_v1" "ingress" {
 
   spec {
     rule {
-      host = "sock_shop_app.dioluwapatan.me"
+      host = "sock-shop-app.dioluwapatan.me"
       http {
         path {
           backend {
